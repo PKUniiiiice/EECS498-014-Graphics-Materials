@@ -19,7 +19,7 @@ transforms:
         rotation: [0.886, 0.0897, 0.3455, 0.2958]
         translation: [0.0, 0.0, 0.0]
         scale: [1.0, 1.0, 1.0]
-exponent: 4.0
+exponent: 5.0
 ambient: [10, 10, 10]
 lights:
     -

@@ -1,0 +1,31 @@
+using customized config name./sample-tests/task-shading.yaml
+Running task with the following configuration:
+======================Config======================
+Type: shading
+Anti-alias: none
+Resolution: 800x800
+Model: cube
+Output: output
+Camera:
+| pos: [x: 0.000][y: 1.000][z: 2.000]
+| lookAt: [x: 0.000][y: 0.000][z: 0.000]
+| up: [x: 0.000][y: 2.000][z: -1.000]
+| width: 0.200
+| height: 0.200
+| nearClip: 0.100
+| farClip: 100.000
+Transforms:
+| - rotation: [w: 0.886][x: 0.090][y: 0.345][z: 0.296]
+|   translation: [x: 0.000][y: 0.000][z: 0.000]
+|   scale: [x: 1.000][y: 1.000][z: 1.000]
+Specular Exponent: 5.000
+Ambient Color: [r: 10][g: 10][b: 10][a: 255]
+Lights:
+| - position: [x: 0.000][y: 1.000][z: 2.000]
+|   intensity: 2.000
+|   color: [r: 255][g: 255][b: 255][a: 255]
+| - position: [x: 4.000][y: 0.000][z: 0.000]
+|   intensity: 8.000
+|   color: [r: 179][g: 87][b: 181][a: 255]
+==================================================
+Writing to PNG with resolution 800x800 for colored images.

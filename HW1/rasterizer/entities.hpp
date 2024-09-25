@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
-
+#include <iostream>
 #include "image.hpp"
 
 #include "../thirdparty/glm/glm.hpp"
@@ -127,6 +127,13 @@ public:
 
     Light(glm::vec3 pos, float intensity, Color color) : 
         pos(pos), intensity(intensity), color(color) {  }
+
+    void print() const {
+        std::cout << "Light Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
+        std::cout << "Intensity: " << intensity << "\n";
+        std::cout << "Color: ";
+        std::cout << ToStr(color) << std::endl;
+    }
 };
 
 #endif
