@@ -316,3 +316,6 @@ TSWLatexianTemp*
 *.yaml
 *.yml
 !HW1/rasterizer/sample-tests/*.yaml
+
+
+./HW1/cg-hw1-test/
