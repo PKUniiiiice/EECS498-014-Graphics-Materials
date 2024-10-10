@@ -22,9 +22,38 @@ Vec3 Scene::trace(const Ray &ray, int bouncesLeft, bool discardEmission) {
         Vec3 diffuseColor = inter.getDiffuseColor();
         return diffuseColor;
     }
-    */
-    /*
-    //task 2/3
+    // task 2
+    // ray is camera ray
+    if ( bouncesLeft < 0) return {};
+        Intersection inter = getIntersection (ray );
+    if (! inter. happened ) {
+        return {};
+    }
+    else {
+        Vec3 wi_dir = Random :: randomHemisphereDirection (inter. getNormal ());
+        Ray secondRay = Ray{inter.pos , wi_dir };
+        Vec3 brdf = inter. calcBRDF (- secondRay .dir , -ray.dir );
+        float cosineTerm = secondRay .dir.dot(inter. getNormal ());
+        // shoot a single ray from interaction point on the surface ;
+        Intersection inter_Li = getIntersection ( secondRay );
+
+        if ( inter_Li . happened && inter_Li .object -> hasEmission ){
+            // hasemission means it is light source
+            Vec3 Li = inter_Li . getEmission ();
+            Vec3 Lo = inter. getEmission () + (2* PI* cosineTerm )*Li*brdf;
+            return Lo;
+        }
+        else{
+            // no Li term
+            return inter. getEmission ();
+        }
+    
+    }
+}
+
+    
+
+    //task 3
     // ray is camera ray
     if (bouncesLeft < 0) return {};
 
@@ -42,20 +71,13 @@ Vec3 Scene::trace(const Ray &ray, int bouncesLeft, bool discardEmission) {
         // shoot a single ray from interaction point on the surface;
         Intersection inter_Li = getIntersection(secondRay);
 
-        //if (inter_Li.happened && inter_Li.object->hasEmission){
-        //hasemission means it is light source
-            //Vec3 Li = inter_Li.getEmission();
-        if (inter_Li.happened){
-            Vec3 Li = trace(secondRay, bouncesLeft-1, false);
-            Vec3 Lo = inter.getEmission() + (2*PI*cosineTerm)*Li*brdf;
-            return Lo;
-        }
-        else{
-            // no Li term
-            return inter.getEmission();
-        }
+        Vec3 Li = trace(secondRay, bouncesLeft-1, false);
+        Vec3 Lo = inter.getEmission() + (2*PI*cosineTerm)*Li*brdf;
+        return Lo;
     }
-    */
+}
+*/
+
     
     //task 4
     if (bouncesLeft < 0) return {};
@@ -72,9 +94,8 @@ Vec3 Scene::trace(const Ray &ray, int bouncesLeft, bool discardEmission) {
         Ray secondRay = Ray{inter.pos, wi_dir};
         Vec3 brdf = inter.calcBRDF(-secondRay.dir, -ray.dir);
         Intersection inter_Li = getIntersection(secondRay);
-        if (inter_Li.happened){
-            L_indirect = PI*brdf*trace(secondRay, bouncesLeft-1, true);
-        }
+
+        L_indirect = PI*brdf*trace(secondRay, bouncesLeft-1, true);
         
         //direct radiance
         float pdfLightSample = 1 / lightArea;

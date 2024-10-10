@@ -5,11 +5,11 @@
 #include <string_view>
 
 
-constexpr int SPP = 256;
+constexpr int SPP = 32;
 
 constexpr int SEED = 42;
 constexpr int RESOLUTION = 512;
-constexpr int MAX_DEPTH = 16;
+constexpr int MAX_DEPTH = 8;
 constexpr float RR = 0.8f;
 
 constexpr std::string_view OBJ_PATH = "./models/cornellBox/CornellBox-Original.obj";
