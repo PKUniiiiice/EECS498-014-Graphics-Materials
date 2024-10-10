@@ -323,4 +323,7 @@ HW1/cg-hw1-test/
 HW2/build/
 
 HW2/EECS_498_HW2.pdf
-*.DS_Store
+
+.DS_Store
+**/.DS_Store
+
