@@ -38,20 +38,25 @@ Vec3 Scene::trace(const Ray &ray, int bouncesLeft, bool discardEmission) {
         Vec3 brdf = inter.calcBRDF(-secondRay.dir, -ray.dir);
 
         float cosineTerm = secondRay.dir.dot(inter.getNormal());
-        // get Li
+
+        // shoot a single ray from interaction point on the surface;
         Intersection inter_Li = getIntersection(secondRay);
 
-        if (!inter_Li.happened){
-            return inter.getEmission();
-        }
-        else{
+        //if (inter_Li.happened && inter_Li.object->hasEmission){
+        //hasemission means it is light source
             //Vec3 Li = inter_Li.getEmission();
+        if (inter_Li.happened){
             Vec3 Li = trace(secondRay, bouncesLeft-1, false);
             Vec3 Lo = inter.getEmission() + (2*PI*cosineTerm)*Li*brdf;
             return Lo;
         }
+        else{
+            // no Li term
+            return inter.getEmission();
+        }
     }
     */
+    
     //task 4
     if (bouncesLeft < 0) return {};
     Intersection inter = getIntersection(ray);
@@ -61,6 +66,7 @@ Vec3 Scene::trace(const Ray &ray, int bouncesLeft, bool discardEmission) {
     else{
         Vec3 L_indirect = {0.0f, 0.0f, 0.0f};
         Vec3 L_direct = {0.0f, 0.0f, 0.0f};
+
         // indirect radiance
         Vec3 wi_dir = Random::cosWeightedHemisphere(inter.getNormal());
         Ray secondRay = Ray{inter.pos, wi_dir};
@@ -69,15 +75,18 @@ Vec3 Scene::trace(const Ray &ray, int bouncesLeft, bool discardEmission) {
         if (inter_Li.happened){
             L_indirect = PI*brdf*trace(secondRay, bouncesLeft-1, true);
         }
+        
         //direct radiance
         float pdfLightSample = 1 / lightArea;
         Intersection lightSample = sampleLight();
         Vec3 lightDir = lightSample.pos - inter.pos;
         float distanceToLight = lightDir.getLength();
         lightDir.normalize();
+
         //shawdow ray
         Ray rayToLight = {inter.pos, lightDir};
         Intersection shawdow_inter = getIntersection(rayToLight);
+
         if ((shawdow_inter.pos-lightSample.pos).getLength()<1e-3){
             //not block
             Vec3 brdf_direct = inter.calcBRDF(-lightDir, -ray.dir);
@@ -85,6 +94,7 @@ Vec3 Scene::trace(const Ray &ray, int bouncesLeft, bool discardEmission) {
             float cos_np_wi = -lightSample.getNormal().dot(lightDir);
             L_direct = 1/(pdfLightSample*distanceToLight*distanceToLight) * (lightSample.getEmission() * brdf_direct * cos_n_wi * cos_np_wi);
         }
+
         //total Li
         Vec3 Li = L_indirect + L_direct;
         Vec3 Lo =  {0.0f, 0.0f, 0.0f};
