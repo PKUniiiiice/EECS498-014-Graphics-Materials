@@ -330,3 +330,7 @@ HW2/EECS_498_HW2.pdf
 .DS_Store
 **/.DS_Store
 
+HW4/
+
+!HW4/HW4/hw_gs/*.py
+!HW4/HW4/hw_nerf/*.py
