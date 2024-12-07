@@ -334,3 +334,11 @@ HW4/
 
 !HW4/HW4/hw_gs/*.py
 !HW4/HW4/hw_nerf/*.py
+
+HW5/*
+HW5/GAN/Task 1
+HW5/GAN/Task 3
+HW5/GAN/Task 5
+!HW5/Diffusion
+!HW5/GAN
+!HW5/EECS_498_HW5.pdf
